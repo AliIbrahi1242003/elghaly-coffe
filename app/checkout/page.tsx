@@ -175,7 +175,7 @@ export default function CheckoutPage() {
                       <option value={0}>Select Governorate</option>
                       {egyptianGovernorates.map((gov) => (
                         <option key={gov.id} value={gov.id}>
-                          {gov.name}
+                          {gov.nameEn}
                         </option>
                       ))}
                     </select>
@@ -208,8 +208,8 @@ export default function CheckoutPage() {
                           : "Select City"}
                       </option>
                       {cities.map((city) => (
-                        <option key={city} value={city}>
-                          {city}
+                        <option key={city.id} value={city.nameEn}>
+                          {city.nameEn}
                         </option>
                       ))}
                     </select>
