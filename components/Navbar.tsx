@@ -9,7 +9,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
-  const { getTotalItems, isHydrated } = useCart();
+  const { items, isHydrated } = useCart();
 
   useEffect(() => {
     setIsMounted(true);
@@ -28,7 +28,10 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const cartCount = isMounted && isHydrated ? getTotalItems() : 0;
+  const cartCount =
+    isMounted && isHydrated
+      ? items.reduce((total, item) => total + item.quantity, 0)
+      : 0;
 
   return (
     <nav
