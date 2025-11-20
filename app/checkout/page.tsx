@@ -52,7 +52,7 @@ export default function CheckoutPage() {
         description: `Order ID: ${orderId}`,
         duration: 5000,
       });
-      router.push("/");
+      router.push("/order-confirmation");
     });
   };
 
@@ -100,11 +100,10 @@ export default function CheckoutPage() {
                       type="text"
                       value={formData.firstName}
                       onChange={(e) => updateField("firstName", e.target.value)}
-                      className={`w-full px-4 py-2 border rounded-lg transition-colors ${
-                        errors.firstName
+                      className={`w-full px-4 py-2 border rounded-lg transition-colors ${errors.firstName
                           ? "border-red-500 focus:ring-red-500"
                           : "border-gray-300 focus:ring-primary"
-                      } focus:outline-none focus:ring-2`}
+                        } focus:outline-none focus:ring-2`}
                       placeholder="John"
                     />
                     {errors.firstName && (
@@ -124,11 +123,10 @@ export default function CheckoutPage() {
                       type="text"
                       value={formData.lastName}
                       onChange={(e) => updateField("lastName", e.target.value)}
-                      className={`w-full px-4 py-2 border rounded-lg transition-colors ${
-                        errors.lastName
+                      className={`w-full px-4 py-2 border rounded-lg transition-colors ${errors.lastName
                           ? "border-red-500 focus:ring-red-500"
                           : "border-gray-300 focus:ring-primary"
-                      } focus:outline-none focus:ring-2`}
+                        } focus:outline-none focus:ring-2`}
                       placeholder="Doe"
                     />
                     {errors.lastName && (
@@ -149,11 +147,10 @@ export default function CheckoutPage() {
                     type="tel"
                     value={formData.phoneNumber}
                     onChange={(e) => updateField("phoneNumber", e.target.value)}
-                    className={`w-full px-4 py-2 border rounded-lg transition-colors ${
-                      errors.phoneNumber
+                    className={`w-full px-4 py-2 border rounded-lg transition-colors ${errors.phoneNumber
                         ? "border-red-500 focus:ring-red-500"
                         : "border-gray-300 focus:ring-primary"
-                    } focus:outline-none focus:ring-2`}
+                      } focus:outline-none focus:ring-2`}
                     placeholder="+20 123 456 7890"
                   />
                   {errors.phoneNumber && (
@@ -176,11 +173,10 @@ export default function CheckoutPage() {
                       onChange={(e) =>
                         updateField("governorate", Number(e.target.value))
                       }
-                      className={`w-full px-4 py-2 border rounded-lg transition-colors ${
-                        errors.governorate
+                      className={`w-full px-4 py-2 border rounded-lg transition-colors ${errors.governorate
                           ? "border-red-500 focus:ring-red-500"
                           : "border-gray-300 focus:ring-primary"
-                      } focus:outline-none focus:ring-2 appearance-none bg-white cursor-pointer`}
+                        } focus:outline-none focus:ring-2 appearance-none bg-white cursor-pointer`}
                     >
                       <option value={0}>Select Governorate</option>
                       {egyptianGovernorates.map((gov) => (
@@ -206,11 +202,10 @@ export default function CheckoutPage() {
                       value={formData.city}
                       onChange={(e) => updateField("city", e.target.value)}
                       disabled={!formData.governorate}
-                      className={`w-full px-4 py-2 border rounded-lg transition-colors ${
-                        errors.city
+                      className={`w-full px-4 py-2 border rounded-lg transition-colors ${errors.city
                           ? "border-red-500 focus:ring-red-500"
                           : "border-gray-300 focus:ring-primary"
-                      } focus:outline-none focus:ring-2 appearance-none bg-white disabled:bg-gray-100 disabled:cursor-not-allowed cursor-pointer`}
+                        } focus:outline-none focus:ring-2 appearance-none bg-white disabled:bg-gray-100 disabled:cursor-not-allowed cursor-pointer`}
                     >
                       <option value="">
                         {!formData.governorate
@@ -242,11 +237,10 @@ export default function CheckoutPage() {
                     onChange={(e) =>
                       updateField("detailedAddress", e.target.value)
                     }
-                    className={`w-full px-4 py-2 border rounded-lg transition-colors resize-none ${
-                      errors.detailedAddress
+                    className={`w-full px-4 py-2 border rounded-lg transition-colors resize-none ${errors.detailedAddress
                         ? "border-red-500 focus:ring-red-500"
                         : "border-gray-300 focus:ring-primary"
-                    } focus:outline-none focus:ring-2`}
+                      } focus:outline-none focus:ring-2`}
                     placeholder="e.g., Apartment 5B, Building 10, Street Name..."
                     rows={2}
                   />
