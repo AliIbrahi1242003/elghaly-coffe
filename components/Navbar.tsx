@@ -2,14 +2,18 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { ShoppingCart, Search, Menu, X } from "lucide-react";
+import { ShoppingCart, Search, Menu, X, UserRound, LogOut } from "lucide-react";
 import { useCart } from "@/hooks/useCart";
+import { signOut, useSession } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const { items, isHydrated } = useCart();
+  const { data: session } = useSession();
+  const router = useRouter();
 
   useEffect(() => {
     setIsMounted(true);
@@ -32,6 +36,19 @@ export default function Navbar() {
     isMounted && isHydrated
       ? items.reduce((total, item) => total + item.quantity, 0)
       : 0;
+
+  const userName = session?.user?.name;
+  const isLoggedIn = Boolean(session?.user);
+
+  const handleSignOut = async () => {
+    await signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          router.push("/");
+        },
+      },
+    });
+  };
 
   return (
     <nav
@@ -74,6 +91,30 @@ export default function Navbar() {
           <button className="p-2 hover:bg-gray-100 rounded-full transition-colors text-foreground">
             <Search size={20} />
           </button>
+          {isLoggedIn ? (
+            <div className="flex items-center gap-3 rounded-full border border-gray-200 bg-white px-3 py-2 text-sm text-foreground shadow-sm">
+              <UserRound size={18} className="text-primary" />
+              <span className="max-w-[140px] truncate font-medium">
+                {userName}
+              </span>
+              <button
+                type="button"
+                onClick={handleSignOut}
+                className="rounded-full p-1 text-gray-500 transition-colors hover:bg-gray-100 hover:text-foreground"
+                aria-label="Sign out"
+              >
+                <LogOut size={16} />
+              </button>
+            </div>
+          ) : (
+            <Link
+              href="/login"
+              className="flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-foreground shadow-sm transition-colors hover:border-primary hover:text-primary"
+            >
+              <UserRound size={18} className="text-primary" />
+              Sign in
+            </Link>
+          )}
           <Link
             href="/cart"
             className="p-2 hover:bg-gray-100 rounded-full transition-colors text-foreground relative"
@@ -126,6 +167,25 @@ export default function Navbar() {
                 <Search size={20} />
                 <span>Search</span>
               </button>
+              {isLoggedIn ? (
+                <button
+                  type="button"
+                  onClick={handleSignOut}
+                  className="flex items-center space-x-2 text-foreground"
+                >
+                  <UserRound size={20} />
+                  <span>{userName}</span>
+                </button>
+              ) : (
+                <Link
+                  href="/login"
+                  className="flex items-center space-x-2 text-foreground"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <UserRound size={20} />
+                  <span>Sign in</span>
+                </Link>
+              )}
               <Link
                 href="/cart"
                 className="flex items-center space-x-2 text-foreground"

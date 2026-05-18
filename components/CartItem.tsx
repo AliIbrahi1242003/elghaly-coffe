@@ -6,8 +6,8 @@ import { CartItem } from "@/lib/cart";
 
 interface CartItemComponentProps {
   item: CartItem;
-  onUpdateQuantity: (productId: string, quantity: number) => void;
-  onRemove: (productId: string) => void;
+  onUpdateQuantity: (productId: number, quantity: number) => void;
+  onRemove: (productId: number) => void;
 }
 
 export default function CartItemComponent({

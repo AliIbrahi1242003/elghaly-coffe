@@ -4,6 +4,7 @@ import * as schema from "./schema";
 import * as dotenv from "dotenv";
 
 if (!process.env.TURSO_DATABASE_URL) {
+  dotenv.config({ path: ".env.local" });
   dotenv.config();
 }
 

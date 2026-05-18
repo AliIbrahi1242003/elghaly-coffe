@@ -50,7 +50,7 @@ export const useCheckout = () => {
     const handleSubmit = async (
     items: CartItem[],
     totalPrice: number,
-    onSuccess?: (orderId: string) => void,
+    onSuccess?: (orderId: number) => void,
   ) => {
     if (!validateForm()) {
       return;
