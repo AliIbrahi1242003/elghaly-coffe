@@ -118,7 +118,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                   <button
                     key={img.id}
                     onClick={() => setSelectedImage(img.url)}
-                    className={`relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden border-2 transition-all ${selectedImage === img.url ? "border-primary" : "border-transparent hover:border-gray-300"
+                    className={`relative w-20 h-20 shrink-0 rounded-lg overflow-hidden border-2 transition-all ${selectedImage === img.url ? "border-primary" : "border-transparent hover:border-gray-300"
                       }`}
                   >
                     <Image
