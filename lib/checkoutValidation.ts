@@ -16,7 +16,8 @@ export interface FormErrors {
   detailedAddress?: string;
 }
 
-const PHONE_REGEX = /^[0-9\s\-\+\(\)]{10,15}$/;
+// Egyptian phone number regex: accepts 010, 011, 012, 015 with optional +20 country code
+const PHONE_REGEX = /^(?:\+20|0)?1[0125]\d{8}$/;
 
 export const validateCheckoutForm = (
   data: Partial<CheckoutFormData>,
