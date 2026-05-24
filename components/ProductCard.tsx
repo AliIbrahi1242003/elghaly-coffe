@@ -53,41 +53,46 @@ export default function ProductCard({
     });
   };
   return (
-    <div className="group relative bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 border border-gray-100">
+    <div className="group relative bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 border border-gray-100">
       {/* Image Container */}
-      <div className="relative h-64 w-full overflow-hidden bg-gray-100">
+      <div className="relative h-72 w-full overflow-hidden bg-gray-50">
         <Image
           src={image}
           alt={title}
           fill
-          className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+          className="object-cover object-center group-hover:scale-110 transition-transform duration-700 ease-in-out"
         />
+        {/* Subtle overlay on hover */}
+        <div className="absolute inset-0 bg-black/5 group-hover:bg-black/20 transition-colors duration-500" />
 
         {!isAdmin && (
           <button
             onClick={handleAddToCart}
-            className="absolute bottom-4 right-4 bg-white text-foreground p-3 rounded-full shadow-lg translate-y-12 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 hover:bg-primary hover:text-white"
+            className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm text-foreground p-3.5 rounded-full shadow-lg translate-y-16 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 hover:bg-primary hover:text-white"
             aria-label={`Add ${title} to cart`}
           >
-            <ShoppingCart size={20} />
+            <ShoppingCart size={22} />
           </button>
         )}
       </div>
 
       {/* Content */}
-      <div className="p-4">
+      <div className="p-5">
         {category && (
-          <span className="text-xs text-gray-500 uppercase tracking-wider mb-1 block">
+          <span className="text-xs text-primary font-semibold uppercase tracking-widest mb-2 block">
             {category}
           </span>
         )}
         <Link href={`/product/${id}`}>
-          <h3 className="text-lg font-medium text-foreground hover:text-primary transition-colors mb-2 line-clamp-1">
+          <h3 className="text-xl font-bold text-gray-900 hover:text-primary transition-colors mb-2 line-clamp-1">
             {title}
           </h3>
         </Link>
-        <div className="flex items-center justify-between">
-          <span className="text-lg font-bold text-primary">
+        <p className="text-sm text-gray-500 line-clamp-2 mb-4">
+          {description || "Premium coffee blend"}
+        </p>
+        <div className="flex items-center justify-between mt-auto">
+          <span className="text-xl font-extrabold text-gray-900">
             LE {price.toFixed(2)}
           </span>
         </div>
