@@ -1,6 +1,6 @@
 import { db } from "@/lib/db";
 import { orderItems, orders } from "@/lib/schema";
-import { count, eq, sql } from "drizzle-orm";
+import { count, eq, ne, sql } from "drizzle-orm";
 
 export default async function AdminDashboard() {
     const [productCountResult, orderCountResult, revenueResult, pendingOrdersResult, completedOrdersResult, cancelledOrdersResult] = await Promise.all([
@@ -8,7 +8,7 @@ export default async function AdminDashboard() {
         db.select({ value: count(orders.id) }).from(orders),
         db.select({
             value: sql<number>`coalesce(sum(${orders.totalAmount}), 0)`,
-        }).from(orders),
+        }).from(orders).where(ne(orders.status, "cancelled")),
         db.select({ value: count(orders.id) }).from(orders).where(eq(orders.status, "pending")),
         db.select({ value: count(orders.id) }).from(orders).where(eq(orders.status, "completed")),
         db.select({ value: count(orders.id) }).from(orders).where(eq(orders.status, "cancelled")),
@@ -28,10 +28,11 @@ export default async function AdminDashboard() {
             </div>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-3 xl:grid-cols-6">
                 <div className="rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
-                    <h3 className="text-sm font-medium text-gray-500">Total Revenue</h3>
+                    <h3 className="text-sm font-medium text-gray-500">Net Revenue</h3>
                     <p className="mt-2 text-2xl font-bold text-gray-900">
                         ${totalRevenue.toFixed(2)}
                     </p>
+                    <p className="mt-1 text-xs text-gray-500">Cancelled orders excluded</p>
                 </div>
                 <div className="rounded-xl border border-gray-100 bg-white p-6 shadow-sm">
                     <h3 className="text-sm font-medium text-gray-500">Total Orders</h3>
